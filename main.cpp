@@ -4,61 +4,62 @@
 
 using namespace std;
 
-// Constantes
+// Constantes y Variables Globales (igual que antes)
 const int MAX_ESTUDIANTES = 100;
 const int NUM_NOTAS = 4;
-
-// Variables Globales (Arrays Paralelos)
 string nombres[MAX_ESTUDIANTES];
 string apellidos[MAX_ESTUDIANTES];
 double notas[MAX_ESTUDIANTES][NUM_NOTAS];
 bool activos[MAX_ESTUDIANTES];
 int contadorEstudiantes = 0;
 
-// Prototipos de Funciones
+// Prototipos
 void mostrarMenu();
 void inscribirEstudiante();
-void cargarNotas();
-void verEstudiantes();
-void verNotasEstudiante();
-void retirarEstudiante();
+void cargarNotas(); // Placeholder
+void verEstudiantes(); // Placeholder
+void verNotasEstudiante(); // Placeholder
+void retirarEstudiante(); // Placeholder
 void limpiarPantalla();
 void esperarEntrada();
 
-// Funciones auxiliares
-void limpiarPantalla() {
-    cout << string(50, '\n');
-}
-
-void esperarEntrada() {
-    cout << "\nPresione Enter para continuar...";
-    cin.get();
-}
-
+// Funciones Auxiliares (igual que antes)
+void limpiarPantalla() { cout << string(50, '\n'); }
+void esperarEntrada() { cout << "\nPresione Enter para continuar..."; cin.get(); }
 void mostrarMenu() {
-    cout << "--- Menu Principal ---" << endl;
-    cout << "1. Inscribir un Estudiante" << endl;
-    cout << "2. Cargar Notas de un Estudiante" << endl;
-    cout << "3. Ver Lista de Estudiantes" << endl;
-    cout << "4. Ver Notas de un Estudiante" << endl;
-    cout << "5. Retirar un Estudiante" << endl;
-    cout << "6. Salir" << endl;
-    cout << "----------------------" << endl;
+    cout << "--- Menu Principal ---\n1. Inscribir\n2. Cargar Notas\n3. Ver Estudiantes\n4. Ver Notas\n5. Retirar\n6. Salir\n----------------------" << endl;
 }
+
+// Implementación de funciones principales
+void inscribirEstudiante() {
+    limpiarPantalla();
+    cout << "--- Inscripcion de Nuevo Estudiante ---" << endl;
+    if (contadorEstudiantes >= MAX_ESTUDIANTES) {
+        cout << "Capacidad maxima alcanzada." << endl;
+        return;
+    }
+    cout << "Nombre: ";
+    getline(cin, nombres[contadorEstudiantes]);
+    cout << "Apellido: ";
+    getline(cin, apellidos[contadorEstudiantes]);
+    for (int i = 0; i < NUM_NOTAS; i++) {
+        notas[contadorEstudiantes][i] = 0.0;
+    }
+    activos[contadorEstudiantes] = true;
+    cout << "\n¡Estudiante " << nombres[contadorEstudiantes] << " " << apellidos[contadorEstudiantes] << " inscrito! ID: " << contadorEstudiantes << endl;
+    contadorEstudiantes++;
+}
+
+// Placeholders para funciones futuras
+void cargarNotas() { cout << "Funcionalidad 'Cargar Notas' pendiente." << endl; }
+void verEstudiantes() { cout << "Funcionalidad 'Ver Estudiantes' pendiente." << endl; }
+void verNotasEstudiante() { cout << "Funcionalidad 'Ver Notas de Estudiante' pendiente." << endl; }
+void retirarEstudiante() { cout << "Funcionalidad 'Retirar Estudiante' pendiente." << endl; }
+
 
 int main() {
-    int dia, mes;
-    cout << "--- Sistema de Administracion Escolar ---" << endl;
-    cout << "Por favor, ingrese la fecha de hoy." << endl;
-    cout << "Dia: ";
-    cin >> dia;
-    cout << "Mes: ";
-    cin >> mes;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    limpiarPantalla();
-    cout << "Fecha de hoy: " << dia << "/" << mes << endl;
-    cout << "¡Bienvenido!" << endl;
-    esperarEntrada();
+    // Código de inicio (fecha, bienvenida)
+    int dia, mes; cin >> dia >> mes; cin.ignore(); limpiarPantalla(); cout << "Fecha: " << dia << "/" << mes << "\n¡Bienvenido!" << endl; esperarEntrada();
 
     int opcion;
     do {
@@ -66,17 +67,18 @@ int main() {
         mostrarMenu();
         cout << "Seleccione una opcion: ";
         cin >> opcion;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.ignore();
 
-        // La lógica del switch se agregará después
-
-        if (opcion == 6) {
-            cout << "Gracias por usar el sistema. ¡Hasta pronto!" << endl;
-        } else {
-            cout << "Opcion seleccionada. La funcionalidad se implementara pronto." << endl;
-            esperarEntrada();
+        switch (opcion) {
+            case 1: inscribirEstudiante(); break;
+            case 2: cargarNotas(); break;
+            case 3: verEstudiantes(); break;
+            case 4: verNotasEstudiante(); break;
+            case 5: retirarEstudiante(); break;
+            case 6: cout << "Saliendo..." << endl; break;
+            default: cout << "Opcion no valida." << endl; break;
         }
-
+        if (opcion != 6) esperarEntrada();
     } while (opcion != 6);
 
     return 0;
