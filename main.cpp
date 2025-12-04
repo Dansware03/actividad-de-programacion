@@ -4,6 +4,27 @@
 
 using namespace std;
 
+// Constantes
+const int MAX_ESTUDIANTES = 100;
+const int NUM_NOTAS = 4;
+
+// Variables Globales (Arrays Paralelos)
+string nombres[MAX_ESTUDIANTES];
+string apellidos[MAX_ESTUDIANTES];
+double notas[MAX_ESTUDIANTES][NUM_NOTAS];
+bool activos[MAX_ESTUDIANTES];
+int contadorEstudiantes = 0;
+
+// Prototipos de Funciones
+void mostrarMenu();
+void inscribirEstudiante();
+void cargarNotas();
+void verEstudiantes();
+void verNotasEstudiante();
+void retirarEstudiante();
+void limpiarPantalla();
+void esperarEntrada();
+
 // Funciones auxiliares
 void limpiarPantalla() {
     cout << string(50, '\n');
@@ -24,7 +45,6 @@ int main() {
     cout << "Mes: ";
     cin >> mes;
 
-    // Limpiar el buffer de entrada para futuras lecturas
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
     limpiarPantalla();
@@ -32,8 +52,6 @@ int main() {
     cout << "Fecha de hoy: " << dia << "/" << mes << endl;
     cout << "¡Bienvenido!" << endl;
     esperarEntrada();
-
-    // El menú y la lógica principal se agregarán en commits posteriores.
 
     cout << "Fin del programa inicial." << endl;
 
