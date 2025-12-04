@@ -35,25 +35,49 @@ void esperarEntrada() {
     cin.get();
 }
 
+void mostrarMenu() {
+    cout << "--- Menu Principal ---" << endl;
+    cout << "1. Inscribir un Estudiante" << endl;
+    cout << "2. Cargar Notas de un Estudiante" << endl;
+    cout << "3. Ver Lista de Estudiantes" << endl;
+    cout << "4. Ver Notas de un Estudiante" << endl;
+    cout << "5. Retirar un Estudiante" << endl;
+    cout << "6. Salir" << endl;
+    cout << "----------------------" << endl;
+}
+
 int main() {
     int dia, mes;
-
     cout << "--- Sistema de Administracion Escolar ---" << endl;
     cout << "Por favor, ingrese la fecha de hoy." << endl;
     cout << "Dia: ";
     cin >> dia;
     cout << "Mes: ";
     cin >> mes;
-
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
     limpiarPantalla();
-
     cout << "Fecha de hoy: " << dia << "/" << mes << endl;
     cout << "¡Bienvenido!" << endl;
     esperarEntrada();
 
-    cout << "Fin del programa inicial." << endl;
+    int opcion;
+    do {
+        limpiarPantalla();
+        mostrarMenu();
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // La lógica del switch se agregará después
+
+        if (opcion == 6) {
+            cout << "Gracias por usar el sistema. ¡Hasta pronto!" << endl;
+        } else {
+            cout << "Opcion seleccionada. La funcionalidad se implementara pronto." << endl;
+            esperarEntrada();
+        }
+
+    } while (opcion != 6);
 
     return 0;
 }
