@@ -3,8 +3,7 @@
 #include <limits>
 
 using namespace std;
-
-// ... (Constantes, Globales, Prototipos y Auxiliares como en el commit 5) ...
+// ... (Includes, constantes, variables, etc. como en commits anteriores)
 const int MAX_ESTUDIANTES = 100;
 const int NUM_NOTAS = 4;
 string nombres[MAX_ESTUDIANTES];
@@ -13,6 +12,7 @@ double notas[MAX_ESTUDIANTES][NUM_NOTAS];
 bool activos[MAX_ESTUDIANTES];
 int contadorEstudiantes = 0;
 
+// Prototipos
 void mostrarMenu();
 void inscribirEstudiante();
 void cargarNotas();
@@ -23,13 +23,12 @@ void limpiarPantalla();
 void esperarEntrada();
 int seleccionarEstudiante();
 
+// ... (Implementaciones de limpiarPantalla, esperarEntrada, mostrarMenu, inscribir, verEstudiantes, seleccionar, cargarNotas)
 void limpiarPantalla() { cout << string(50, '\n'); }
 void esperarEntrada() { cout << "\nPresione Enter para continuar..."; cin.get(); }
 void mostrarMenu() {
     cout << "--- Menu ---\n1. Inscribir\n2. Cargar Notas\n3. Ver Estudiantes\n4. Ver Notas\n5. Retirar\n6. Salir" << endl;
 }
-
-// Funciones ya implementadas (inscribir, verEstudiantes, seleccionarEstudiante)
 void inscribirEstudiante() {
     limpiarPantalla(); cout << "--- Inscripcion ---" << endl;
     if (contadorEstudiantes >= MAX_ESTUDIANTES) { cout << "Maximo alcanzado." << endl; return; }
@@ -39,6 +38,20 @@ void inscribirEstudiante() {
     activos[contadorEstudiantes] = true;
     cout << "\n¡Inscrito! ID: " << contadorEstudiantes << endl;
     contadorEstudiantes++;
+}
+void cargarNotas() {
+    limpiarPantalla();
+    cout << "--- Cargar Notas ---" << endl;
+    int id = seleccionarEstudiante();
+    if (id != -1) {
+        cout << "\nCargando notas para " << nombres[id] << " " << apellidos[id] << ":" << endl;
+        for (int i = 0; i < NUM_NOTAS; i++) {
+            cout << "Ingrese la nota " << (i + 1) << ": ";
+            cin >> notas[id][i];
+        }
+        cin.ignore();
+        cout << "\n¡Notas cargadas!" << endl;
+    }
 }
 void verEstudiantes() {
     limpiarPantalla(); cout << "--- Estudiantes ---" << endl;
@@ -65,24 +78,25 @@ int seleccionarEstudiante() {
     return id;
 }
 
-// Nueva implementación
-void cargarNotas() {
+
+// Nueva Implementación
+void verNotasEstudiante() {
     limpiarPantalla();
-    cout << "--- Cargar Notas ---" << endl;
+    cout << "--- Consultar Notas ---" << endl;
     int id = seleccionarEstudiante();
     if (id != -1) {
-        cout << "\nCargando notas para " << nombres[id] << " " << apellidos[id] << ":" << endl;
+        cout << "\nMostrando notas para " << nombres[id] << " " << apellidos[id] << ":" << endl;
+        double suma = 0.0;
         for (int i = 0; i < NUM_NOTAS; i++) {
-            cout << "Ingrese la nota " << (i + 1) << ": ";
-            cin >> notas[id][i];
+            cout << "Nota " << (i + 1) << ": " << notas[id][i] << endl;
+            suma += notas[id][i];
         }
-        cin.ignore();
-        cout << "\n¡Notas cargadas!" << endl;
+        double promedio = suma / NUM_NOTAS;
+        cout << "Promedio: " << promedio << endl;
     }
 }
 
-// Placeholders
-void verNotasEstudiante() { cout << "Funcionalidad 'Ver Notas' pendiente." << endl; }
+// Placeholder
 void retirarEstudiante() { cout << "Funcionalidad 'Retirar' pendiente." << endl; }
 
 int main() {
@@ -95,9 +109,9 @@ int main() {
         cin.ignore();
         switch (opcion) {
             case 1: inscribirEstudiante(); break;
-            case 2: cargarNotas(); break; // Ahora funciona
+            case 2: cargarNotas(); break;
             case 3: verEstudiantes(); break;
-            case 4: verNotasEstudiante(); break;
+            case 4: verNotasEstudiante(); break; // Ahora funciona
             case 5: retirarEstudiante(); break;
             case 6: cout << "Saliendo..." << endl; break;
             default: cout << "Opcion no valida." << endl; break;
