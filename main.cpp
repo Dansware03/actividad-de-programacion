@@ -25,7 +25,7 @@ int seleccionarEstudiante();
 
 // ... (Implementaciones de limpiarPantalla, esperarEntrada, mostrarMenu, inscribir, verEstudiantes, seleccionar, cargarNotas)
 void limpiarPantalla() { cout << string(50, '\n'); }
-void esperarEntrada() { cout << "\nPresione Enter para continuar..."; cin.get(); }
+void esperarEntrada() { cout << "\nPresione Enter..."; cin.get(); }
 void mostrarMenu() {
     cout << "--- Menu ---\n1. Inscribir\n2. Cargar Notas\n3. Ver Estudiantes\n4. Ver Notas\n5. Retirar\n6. Salir" << endl;
 }
@@ -64,6 +64,21 @@ void verEstudiantes() {
     }
     if (!hay) cout << "No hay estudiantes." << endl;
 }
+void verNotasEstudiante() {
+    limpiarPantalla();
+    cout << "--- Consultar Notas ---" << endl;
+    int id = seleccionarEstudiante();
+    if (id != -1) {
+        cout << "\nMostrando notas para " << nombres[id] << " " << apellidos[id] << ":" << endl;
+        double suma = 0.0;
+        for (int i = 0; i < NUM_NOTAS; i++) {
+            cout << "Nota " << (i + 1) << ": " << notas[id][i] << endl;
+            suma += notas[id][i];
+        }
+        double promedio = suma / NUM_NOTAS;
+        cout << "Promedio: " << promedio << endl;
+    }
+}
 int seleccionarEstudiante() {
     verEstudiantes();
     if (contadorEstudiantes == 0) return -1;
@@ -80,24 +95,24 @@ int seleccionarEstudiante() {
 
 
 // Nueva Implementación
-void verNotasEstudiante() {
+void retirarEstudiante() {
     limpiarPantalla();
-    cout << "--- Consultar Notas ---" << endl;
+    cout << "--- Retirar Estudiante ---" << endl;
     int id = seleccionarEstudiante();
     if (id != -1) {
-        cout << "\nMostrando notas para " << nombres[id] << " " << apellidos[id] << ":" << endl;
-        double suma = 0.0;
-        for (int i = 0; i < NUM_NOTAS; i++) {
-            cout << "Nota " << (i + 1) << ": " << notas[id][i] << endl;
-            suma += notas[id][i];
+        char confirmacion;
+        cout << "\n¿Seguro que desea retirar a " << nombres[id] << "? (S/N): ";
+        cin >> confirmacion;
+        cin.ignore();
+        if (confirmacion == 'S' || confirmacion == 's') {
+            activos[id] = false;
+            cout << "Estudiante retirado." << endl;
+        } else {
+            cout << "Operacion cancelada." << endl;
         }
-        double promedio = suma / NUM_NOTAS;
-        cout << "Promedio: " << promedio << endl;
     }
 }
 
-// Placeholder
-void retirarEstudiante() { cout << "Funcionalidad 'Retirar' pendiente." << endl; }
 
 int main() {
     int dia, mes; cout << "Dia: "; cin >> dia; cout<<"Mes: "; cin >> mes; cin.ignore(); limpiarPantalla(); cout << "Fecha: " << dia << "/" << mes << endl; esperarEntrada();
@@ -111,8 +126,8 @@ int main() {
             case 1: inscribirEstudiante(); break;
             case 2: cargarNotas(); break;
             case 3: verEstudiantes(); break;
-            case 4: verNotasEstudiante(); break; // Ahora funciona
-            case 5: retirarEstudiante(); break;
+            case 4: verNotasEstudiante(); break;
+            case 5: retirarEstudiante(); break; // Ahora funciona
             case 6: cout << "Saliendo..." << endl; break;
             default: cout << "Opcion no valida." << endl; break;
         }
