@@ -27,6 +27,7 @@ void limpiarPantalla();
 void esperarEntrada();
 int seleccionarEstudiante();
 // Se van a crear 2 funciones de manejo de archivos (guardar y cargar)
+void guardarDatos();
 
 // --- Implementación de Funciones Auxiliares ---
 void limpiarPantalla() {
@@ -146,6 +147,26 @@ void retirarEstudiante() {
     }
 }
 
+// --- Funciones de Archivos ---
+void guardarDatos() {
+    ofstream archivo("estudiantes.txt");
+    if (!archivo) {
+        cout << "Error al abrir archivo para guardar." << endl;
+        return;
+    }
+    archivo << contadorEstudiantes << endl;
+    for (int i = 0; i < contadorEstudiantes; i++) {
+        archivo << activos[i] << endl;
+        archivo << nombres[i] << endl;
+        archivo << apellidos[i] << endl;
+        for (int j = 0; j < NUM_NOTAS; j++) {
+            archivo << notas[i][j] << endl;
+        }
+    }
+    archivo.close();
+    cout << "Datos guardados correctamente en estudiantes.txt" << endl;
+}
+
 // --- Función Principal ---
 int main() {
     int dia, mes;
@@ -172,7 +193,10 @@ int main() {
             case 3: verEstudiantes(); break;
             case 4: verNotasEstudiante(); break;
             case 5: retirarEstudiante(); break;
-            case 6: cout << "Gracias por usar el sistema. ¡Hasta pronto!" << endl; break;
+            case 6: 
+                guardarDatos();  // Al salir, guarda estudiantes en archivo
+                cout << "Gracias por usar el sistema. ¡Hasta pronto!" << endl; 
+                break;
             default: cout << "Opcion no valida." << endl; break;
         }
         if (opcion != 6) {
