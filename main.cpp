@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <fstream>   // Para manejo de archivos
 
 using namespace std;
 
@@ -25,6 +26,7 @@ void retirarEstudiante();
 void limpiarPantalla();
 void esperarEntrada();
 int seleccionarEstudiante();
+// Se van a crear 2 funciones de manejo de archivos (guardar y cargar)
 
 // --- Implementación de Funciones Auxiliares ---
 void limpiarPantalla() {
