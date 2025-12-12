@@ -28,6 +28,7 @@ void esperarEntrada();
 int seleccionarEstudiante();
 // Se van a crear 2 funciones de manejo de archivos (guardar y cargar)
 void guardarDatos();
+void cargarDatos();
 
 // --- Implementación de Funciones Auxiliares ---
 void limpiarPantalla() {
@@ -167,8 +168,32 @@ void guardarDatos() {
     cout << "Datos guardados correctamente en estudiantes.txt" << endl;
 }
 
+void cargarDatos() {
+    ifstream archivo("estudiantes.txt");
+    if (!archivo) {
+        cout << "No se encontró archivo de datos, iniciando vacío." << endl;
+        return;
+    }
+    archivo >> contadorEstudiantes;
+    archivo.ignore(numeric_limits<streamsize>::max(), '\n');
+    for (int i = 0; i < contadorEstudiantes; i++) {
+        archivo >> activos[i];
+        archivo.ignore();
+        getline(archivo, nombres[i]);
+        getline(archivo, apellidos[i]);
+        for (int j = 0; j < NUM_NOTAS; j++) {
+            archivo >> notas[i][j];
+        }
+        archivo.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    archivo.close();
+    cout << "Datos cargados correctamente desde estudiantes.txt" << endl;
+}
+
 // --- Función Principal ---
 int main() {
+    cargarDatos();  // Al iniciar, carga estudiantes desde archivo
+
     int dia, mes;
     cout << "--- Sistema de Administracion Escolar ---\nPor favor, ingrese la fecha de hoy.\nDia: ";
     cin >> dia;
