@@ -1,0 +1,19 @@
+{
+    "name": "dansware/clases_programacion",
+    "description": "clases de programacion",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Models\\": "Models/",
+            "Controllers\\": "Controllers/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dansware03",
+            "email": "dansware2003@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
